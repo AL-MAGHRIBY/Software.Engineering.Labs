@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>مدونة جانغو</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #fdfcfb, #ebedee);
+            color: #2c3e50;
+        }
+
+        header {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1.2s ease-out;
+        }
+
+        .content h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #34495e;
+        }
+
+        .content p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #555555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #999999;
+            font-size: 0.9em;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>مرحبًا بك في مدونة جانغو</h1>
+    </header>
+
+    <div class="content">
+        <h2>ابدأ رحلتك في تطوير الويب</h2>
+        <p>
+            في هذه المدونة، نقدم لك مقالات حديثة، نصائح عملية، وأمثلة واقعية لبناء مواقع وتطبيقات قوية باستخدام Django.
+            سواء كنت مبتدئًا أو محترفًا، ستجد ما يلهمك ويُساعدك على التقدم.
+        </p>
+    </div>
+
+    <footer>
+        &copy; 2025 - مدونة جانغو التعليمية
+    </footer>
+</body>
+
+</html>
