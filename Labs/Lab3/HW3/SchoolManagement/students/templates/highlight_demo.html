@@ -1,0 +1,348 @@
+{% load highlight_filters %}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أداة التظليل الذكي للكلمات المشابهة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e1e5ee 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: var(--dark-color);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .app-title {
+            margin: 0;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .app-description {
+            max-width: 700px;
+            margin: 15px auto 0;
+            opacity: 0.9;
+        }
+
+        .app-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .app-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .control-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .panel-title {
+            margin-top: 0;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .range-value {
+            min-width: 40px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(41, 128, 185, 0.3);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .sample-texts {
+            margin-top: 15px;
+        }
+
+        .sample-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 5px;
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
+
+        .result-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .result-content {
+            min-height: 200px;
+            border: 1px dashed #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            background: var(--light-color);
+        }
+
+        .highlighted {
+            background-color: #fffacd;
+            padding: 0 2px;
+            border-radius: 3px;
+        }
+
+        .stats {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f8fe;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1 class="app-title">
+                <i class="fas fa-highlighter"></i>
+                أداة التظليل الذكي
+            </h1>
+            <p class="app-description">
+                أداة متقدمة لتظليل الكلمات المشابهة في النصوص العربية مع إمكانية التحكم بدرجة التشابه ولون التظليل
+            </p>
+        </header>
+
+        <div class="app-body">
+            <div class="control-panel">
+                <h2 class="panel-title">
+                    <i class="fas fa-sliders-h"></i>
+                    إعدادات التظليل
+                </h2>
+
+                <form method="get">
+                    <div class="form-group">
+                        <label for="text-input" class="form-label">النص المدخل:</label>
+                        <textarea id="text-input" name="text" class="form-control"
+                            placeholder="أدخل النص الذي تريد تحليله هنا...">{{ request.GET.text|default:"التعلم الآلي هو مجال من مجالات الذكاء الاصطناعي الذي يتعامل مع تعليم الحاسوب كيفية التعلم من البيانات دون أن يكون مبرمجًا بشكل صريح. التعلم العميق هو نوع خاص من التعلم الآلي." }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="word-input" class="form-label">الكلمة المطلوب تظليل مشابهاتها:</label>
+                        <input type="text" id="word-input" name="word" class="form-control"
+                            placeholder="أدخل الكلمة الأساسية" value="{{ request.GET.word|default:'التعلم' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">درجة التشابه المطلوبة:</label>
+                        <div class="range-container">
+                            <input type="range" name="similarity" min="0" max="1" step="0.1"
+                                value="{{ request.GET.similarity|default:'0.7' }}" class="form-control"
+                                style="flex: 1;">
+                            <span class="range-value">{{ request.GET.similarity|default:"0.7" }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="color-input" class="form-label">لون التظليل:</label>
+                        <input type="color" id="color-input" name="color"
+                            value="{{ request.GET.color|default:'#fffacd' }}" class="form-control"
+                            style="height: 45px; padding: 5px;">
+                    </div>
+
+                    <button type="submit" class="btn btn-block">
+                        <i class="fas fa-magic"></i> تطبيق التظليل
+                    </button>
+
+                    <div class="sample-texts">
+                        <p>نصوص جاهزة للتجريب:</p>
+                        <button type="button" class="sample-btn" onclick="setSampleText(1)">1. نص تعليمي</button> |
+                        <button type="button" class="sample-btn" onclick="setSampleText(2)">2. نص طبي</button> |
+                        <button type="button" class="sample-btn" onclick="setSampleText(3)">3. نص إخباري</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="result-panel">
+                <h2 class="panel-title">
+                    <i class="fas fa-search"></i>
+                    نتيجة التحليل
+                </h2>
+
+                <div class="result-content">
+                    {% if request.GET %}
+                    {{ request.GET.text|highlight_similar:highlight_args }}
+                    {% else %}
+                    <p style="color: #666; text-align: center; margin-top: 50px;">
+                        <i class="fas fa-arrow-right"
+                            style="transform: rotate(180deg); display: inline-block; margin-left: 10px;"></i>
+                        أدخل النص واضغط على "تطبيق التظليل" لرؤية النتائج
+                    </p>
+                    {% endif %}
+                </div>
+
+                {% if request.GET %}
+                <div class="stats">
+                    <div class="stat-item">
+                        <span>عدد الكلمات:</span>
+                        <span class="stat-value">{{ word_count }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>الكلمات المظللة:</span>
+                        <span class="stat-value">{{ highlighted_count }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>نسبة التشابه المستخدمة:</span>
+                        <span class="stat-value">{{ request.GET.similarity|default:"0.7" }}</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="footer">
+            &copy; 2023 نظام إدارة الطلاب - كل الحقوق محفوظة
+        </div>
+    </div>
+
+    <script>
+        // تحديث قيمة شريط التمرير أثناء السحب
+        document.querySelector('input[type="range"]').addEventListener('input', function () {
+            this.nextElementSibling.textContent = this.value;
+        });
+
+        // تعيين نصوص جاهزة للتجريب
+        function setSampleText(type) {
+            const texts = {
+                1: "التعلم الآلي هو مجال من مجالات الذكاء الاصطناعي الذي يتعامل مع تعليم الحاسوب كيفية التعلم من البيانات دون أن يكون مبرمجًا بشكل صريح. التعلم العميق هو نوع خاص من التعلم الآلي.",
+                2: "يعد مرض السكري من الأمراض المزمنة التي تؤثر على قدرة الجسم في تحويل الغذاء إلى طاقة. ينقسم السكري إلى نوعين رئيسيين: السكري من النوع الأول والسكري من النوع الثاني.",
+                3: "أعلنت وزارة الصحة اليوم عن تسجيل حالات جديدة لفيروس كورونا في عدة محافظات. وأكد المتحدث الرسمي أن الوزارة تتابع الموقف الوبائي عن كثب وتتخذ جميع الإجراءات الوقائية اللازمة."
+            };
+
+            document.getElementById('text-input').value = texts[type];
+            document.getElementById('word-input').value = type === 1 ? 'التعلم' : type === 2 ? 'السكري' : 'الصحة';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعديل بيانات الطالب</title>
+    <style>
+        /* نفس أنماط addstudent.html */
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .btn-submit {
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">تعديل بيانات الطالب</div>
+
+    <div class="form-container">
+        <h2>تعديل بيانات الطالب</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="first_name">الاسم الأول:</label>
+                <input type="text" id="first_name" name="first_name" value="{{ student.FirstName }}" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">الاسم الأخير:</label>
+                <input type="text" id="last_name" name="last_name" value="{{ student.LastName }}" required>
+            </div>
+            <div class="form-group">
+                <label for="age">العمر:</label>
+                <input type="number" id="age" name="age" value="{{ student.Age }}" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">الجنس:</label>
+                <select name="gender" id="gender">
+                    {% with current_gender=student.Gender|stringformat:"s" %}
+                    <option value="ذكر" {% if current_gender=='ذكر' %}selected{% endif %}>ذكر</option>
+                    <option value="أنثى" {% if current_gender=='أنثى' %}selected{% endif %}>أنثى</option>
+                    {% endwith %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="level">المرحلة الجامعية:</label>
+                <select id="level" name="level" required>
+                    <option value="السنة الأولى" {% if student.Level='السنة الأولى' %}selected{% endif %}>السنة الأولى
+                    </option>
+                    <option value="السنة الثانية" {% if student.Level='السنة الثانية' %}selected{% endif %}>السنة
+                        الثانية</option>
+                    <option value="السنة الثالثة" {% if student.Level='السنة الثالثة' %}selected{% endif %}>السنة
+                        الثالثة</option>
+                    <option value="السنة الرابعة" {% if student.Level='السنة الرابعة' %}selected{% endif %}>السنة
+                        الرابعة</option>
+                    <option value="السنة الخامسة" {% if student.Level='السنة الخامسة' %}selected{% endif %}>السنة
+                        الخامسة</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="status">منتظم:</label>
+                <select id="status" name="status" required>
+                    <option value="نعم" {% if student.Status='نعم' %}selected{% endif %}>نعم</option>
+                    <option value="لا" {% if student.Status='لا' %}selected{% endif %}>لا</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-submit">حفظ التعديلات</button>
+        </form>
+        <a href="{% url 'show' %}">العودة لقائمة الطلاب</a>
+    </div>
+</body>
+
+</html>

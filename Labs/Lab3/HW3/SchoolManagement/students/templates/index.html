@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Template Filters Showcase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Tajawal', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .filters-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .filter-card {
+            background: var(--light-color);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border-radius: 0 5px 5px 0;
+            transition: all 0.3s;
+        }
+
+        .filter-card:hover {
+            transform: translateX(5px);
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-syntax {
+            background: #f8f9fa;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin: 0 5px;
+        }
+
+        .filter-result {
+            font-weight: 500;
+            color: var(--dark-color);
+            margin-top: 0.5rem;
+        }
+
+        .filter-desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1rem;
+            background: var(--light-color);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                <i class="fas fa-filter"></i>
+                Django Template Filters Showcase
+            </h1>
+        </header>
+
+        <div class="filters-section">
+            <h2>Basic String Filters</h2>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-font"></i>
+                    Default Value
+                </div>
+                <div class="filter-syntax">{{fname|default:'doaa almaghriby' }}</div>
+                <div class="filter-result">Result: {{fname|default:'doaa almaghriby' }}</div>
+                <div class="filter-desc">Provides a default value if variable is empty or False</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-text-height"></i>
+                    Uppercase
+                </div>
+                <div class="filter-syntax">{{fname|upper }}</div>
+                <div class="filter-result">Result: {{fname|upper }}</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-text-width"></i>
+                    Lowercase
+                </div>
+                <div class="filter-syntax">{{ fname|lower }}</div>
+                <div class="filter-result">Result: {{ fname|lower }}</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-text-height"></i>
+                    Capitalize First Letter
+                </div>
+                <div class="filter-syntax">{{ fname|capfirst }}</div>
+                <div class="filter-result">Result: {{ fname|capfirst }}</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-ruler-horizontal"></i>
+                    Length
+                </div>
+                <div class="filter-syntax">{{ fname|length }}</div>
+                <div class="filter-result">Result: {{ fname|length }} letters</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-cut"></i>
+                    Slice 2
+                </div>
+                <div class="filter-syntax">{{ fname|slice:":2" }}</div>
+                <div class="filter-result">Result: {{ fname|slice:":2" }}</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-plus"></i>
+                    Add Strings
+                </div>
+                <div class="filter-syntax">{{ fname|add:" almaghriby" }}</div>
+                <div class="filter-result">Result: {{ fname|add:" almaghriby" }}</div>
+            </div>
+        </div>
+
+        <div class="filters-section">
+            <h2>Additional Useful Filters</h2>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-calendar-alt"></i>
+                    Date Formatting
+                </div>
+                <div class="filter-syntax">{{ today|date:"Y-m-d" }}</div>
+                <div class="filter-result">Result: {{ today|date:"Y-m-d" }}</div>
+                <div class="filter-desc">Formats date objects (requires date variable)</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-list-ol"></i>
+                    Join List
+                </div>
+                <div class="filter-syntax">{{ list|join:", " }}</div>
+                <div class="filter-result">Result: {{ list|join:", " }}</div>
+                <div class="filter-desc">Joins list elements with specified separator</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-dollar-sign"></i>
+                    Floatformat
+                </div>
+                <div class="filter-syntax">{{ float_num|floatformat:2 }}</div>
+                <div class="filter-result">Result: {{ float_num|floatformat:2 }}</div>
+                <div class="filter-desc">Rounds floating point number to decimal places</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-file-alt"></i>
+                    Truncatechars
+                </div>
+                <div class="filter-syntax">{{ long_text|truncatechars:20 }}</div>
+                <div class="filter-result">Result: {{ long_text|truncatechars:20 }}</div>
+                <div class="filter-desc">Truncates string after specified number of chars</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-file-word"></i>
+                    Wordcount
+                </div>
+                <div class="filter-syntax">{{ text|wordcount }}</div>
+                <div class="filter-result">Result: {{ text|wordcount }} words</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-random"></i>
+                    Random
+                </div>
+                <div class="filter-syntax">{{ list|random }}</div>
+                <div class="filter-result">Result: {{ list|random }}</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-sort"></i>
+                    Dictsort
+                </div>
+                <div class="filter-syntax">{{ dict_list|dictsort:"name" }}</div>
+                <div class="filter-desc">Sorts list of dictionaries by key</div>
+            </div>
+        </div>
+
+        <div class="filters-section">
+            <h2>Advanced Filters</h2>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-code"></i>
+                    Safe (Mark as HTML safe)
+                </div>
+                <div class="filter-syntax">{{ html_content|safe }}</div>
+                <div class="filter-desc">Marks string as HTML safe (won't be escaped)</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-link"></i>
+                    Urlize
+                </div>
+                <div class="filter-syntax">{{ url_text|urlize }}</div>
+                <div class="filter-desc">Converts URLs in text into clickable links</div>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-title">
+                    <i class="fas fa-hashtag"></i>
+                    Line Numbers
+                </div>
+                <div class="filter-syntax">{{ code_text|linenumbers }}</div>
+                <div class="filter-desc">Displays text with line numbers</div>
+            </div>
+
+        </div>
+
+        <footer>
+            Django Template Filters - Comprehensive Guide
+        </footer>
+    </div>
+</body>
+
+</html>
