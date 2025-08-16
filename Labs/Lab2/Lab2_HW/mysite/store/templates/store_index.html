@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>متجر جانغو العصري</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* خلفية متدرجة */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* شريط العنوان */
+        header {
+            padding: 60px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            animation: slideInTop 1s ease-out;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            color: #00ffd5;
+            letter-spacing: 2px;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-in;
+            backdrop-filter: blur(10px);
+        }
+
+        .content h2 {
+            font-size: 2em;
+            color: #ffcb05;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 1.2em;
+            line-height: 2;
+            color: #eee;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #aaa;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* الحركات */
+        @keyframes slideInTop {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* تجاوب الهاتف */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .content h2 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>مرحبا بك في متجر جانغو العصري</h1>
+    </header>
+
+    <div class="content">
+        <h2>تجربة تسوّق أنيقة!</h2>
+        <p>
+            هذا المتجر التجريبي يُظهر لك كيف يمكننا استخدام Django مع تصميم حديث وتأثيرات أنميشن جميلة.
+            بإمكاننا تطويره لاحقًا ليشمل المنتجات، الدفع، والتسجيل.
+        </p>
+    </div>
+
+    <footer>
+        &copy; 2025 - جميع الحقوق محفوظة لـ Django Store
+    </footer>
+
+</body>
+
+</html>
